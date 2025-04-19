@@ -13,18 +13,18 @@ let tasksDropdownContainer = ref(null);
 let tasksDropdown = ref(null);
 
 const handleBlur = (e) => {
-  isOpen.value = false;
-  // checkDropdownOutsideClick(e);
+  // isOpen.value = false;
+  checkDropdownOutsideClick(e);
 };
 const handleItemClick = (e, val) => {
-  console.log(e.target)
+  console.log(e.target);
   isOpen.value = false;
   goToRoute(val);
 };
 
 const searchResult = computed(() => {
   const searchTerms = searchVal.value.toLowerCase().split(' ');
-  return  searchVal.value
+  return searchVal.value
     ? Tasks.filter((task) =>
         searchTerms.every((term) => task.name.toLowerCase().includes(term) || task.value.toLowerCase().includes(term))
       )
@@ -52,7 +52,13 @@ function checkDropdownOutsideClick({ relatedTarget }) {
 </script>
 
 <template>
-  <div ref="tasksDropdown" class="dropdown-component-wrapper" :class="{ 'is-open': isOpen }" tabindex="-1" @blur="handleBlur">
+  <div
+    ref="tasksDropdown"
+    class="dropdown-component-wrapper"
+    :class="{ 'is-open': isOpen }"
+    tabindex="-1"
+    @blur="handleBlur"
+  >
     <div class="header" @click.stop="isOpen = !isOpen">
       <div class="header-title">Frontend Demo Tasks</div>
       <!-- <input
@@ -100,11 +106,22 @@ function checkDropdownOutsideClick({ relatedTarget }) {
     </div>
     <div class="dropdown-items-container" ref="tasksDropdownContainer">
       <div class="search-wrapper">
-        <input class="strip-input-default-styles" type="text" placeholder="Search task..." v-model="searchVal" @blur="handleBlur"/>
+        <input
+          class="strip-input-default-styles"
+          type="text"
+          placeholder="Search task..."
+          v-model="searchVal"
+          @blur="handleBlur"
+        />
       </div>
 
       <div class="item-list" v-if="searchResult?.length">
-        <div class="items" v-for="task in searchResult" :key="task.value" @click.stop="handleItemClick($event,task.value)">
+        <div
+          class="items"
+          v-for="task in searchResult"
+          :key="task.value"
+          @click.stop="handleItemClick($event, task.value)"
+        >
           <div class="task">{{ task.name }}</div>
           <svg
             fill="#000000"
