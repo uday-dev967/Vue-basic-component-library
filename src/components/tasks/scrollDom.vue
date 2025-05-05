@@ -1,10 +1,10 @@
 <script setup>
 import { reactive, computed, ref, onMounted, nextTick } from 'vue';
-const itemsList = ref([])
-let elementsData = ref([])
+const itemsList = ref([]);
+let elementsData = ref([]);
 
 function onAddItemClick() {
-  itemsList.value = [...itemsList.value,`ITEM ${itemsList.value.length+1}`]
+  itemsList.value = [...itemsList.value, `ITEM ${itemsList.value.length + 1}`];
   nextTick(() => {
     const parentElement = getElementDimensions('containing-dom-page-wrapper');
     const scrollParentElement = getElementDimensions('scroll-dom-wrapper');
@@ -13,16 +13,23 @@ function onAddItemClick() {
     const scrollElement = getElementDimensions('scroll-container');
     const leftContainerElement = getElementDimensions('left-container');
 
-    bodyElement['background']=''
-    appElement['background']='background-light-pink'
-    parentElement['background']='background-light-blue'
-    scrollParentElement['background']='background-light-gray'
-    leftContainerElement['background']='background-light-purple'
-    scrollElement['background']='background-light-orange'
-    elementsData.value = [bodyElement, appElement, parentElement, scrollParentElement, scrollElement, leftContainerElement, ]
+    bodyElement['background'] = '';
+    appElement['background'] = 'background-light-pink';
+    parentElement['background'] = 'background-light-blue';
+    scrollParentElement['background'] = 'background-light-gray';
+    leftContainerElement['background'] = 'background-light-purple';
+    scrollElement['background'] = 'background-light-orange';
+    elementsData.value = [
+      bodyElement,
+      appElement,
+      parentElement,
+      scrollParentElement,
+      scrollElement,
+      leftContainerElement,
+    ];
     // elementsData.value = [parentElement, scrollParentElement, scrollElement, ]
     // elementsData.value = [ scrollParentElement, scrollElement ]
-  })
+  });
 }
 
 function getElementDimensions(elementId) {
@@ -37,7 +44,7 @@ function getElementDimensions(elementId) {
       width: elementRect.width,
       display: computedStyles.display,
       overflowX: computedStyles.overflowX,
-      overflowY: computedStyles.overflowY
+      overflowY: computedStyles.overflowY,
     };
   }
   return {};
@@ -47,21 +54,33 @@ function getElementDimensions(elementId) {
 <template>
   <div class="scroll-dom-wrapper" id="scroll-dom-wrapper">
     <!-- <div class="left-container" id="left-container"> -->
-      <div class="scroll-container" id="scroll-container">
-        <div v-for="item in itemsList" :key="item" class="item">
-          {{ item }}
-        </div>
+    <div class="scroll-container" id="scroll-container">
+      <div v-for="item in itemsList" :key="item" class="item">
+        {{ item }}
       </div>
+    </div>
     <!-- </div> -->
     <div class="right-container">
       <div class="primary-button" @click="onAddItemClick">add item</div>
       <div class="data-list-wrapper">
-        <div v-for="elementData in elementsData" :key="elementData.key" :class="['data-wrapper', elementData.background]" >
+        <div
+          v-for="elementData in elementsData"
+          :key="elementData.key"
+          :class="['data-wrapper', elementData.background]"
+        >
           <div class="head">{{ elementData.key }}</div>
-          <div class="data">height: <span>{{elementData.height}}</span></div>
-          <div class="data">width: <span>{{elementData.width}}</span></div>
-          <div class="data">overflowX: <span>{{elementData.overflowX}}</span></div>
-          <div class="data">overflowY: <span>{{elementData.overflowY}}</span></div>
+          <div class="data">
+            height: <span>{{ elementData.height }}</span>
+          </div>
+          <div class="data">
+            width: <span>{{ elementData.width }}</span>
+          </div>
+          <div class="data">
+            overflowX: <span>{{ elementData.overflowX }}</span>
+          </div>
+          <div class="data">
+            overflowY: <span>{{ elementData.overflowY }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -154,7 +173,7 @@ function getElementDimensions(elementId) {
 
 <style lang="scss">
 #app {
-  background: $background-12 !important;
+  // background: $background-12 !important;
   padding: 1rem;
 }
 </style>
