@@ -3,7 +3,9 @@ import HomeWrapper from '../views/HomeWrapper.vue';
 import LoginWrapper from '../views/LoginWrapper.vue';
 import ContainingDomHeight from '../views/ContainingDomHeight.vue';
 import ImageContain from '../views/ImageContain.vue';
-import TableComponent from "../views/TableComponent.vue"
+import TableComponent from '../views/TableComponent.vue';
+import BasicInputComponent from '../views/BasicInputComponent.vue';
+import BasicTextAreaComponent from '../views/BasicTextAreaComponent.vue';
 import TestComponents from '../views/TestComponents.vue';
 
 const router = createRouter({
@@ -39,6 +41,16 @@ const router = createRouter({
       path: '/test-components',
       name: 'TestComponents',
       component: TestComponents,
+    },
+    {
+      path: '/basic-input-component',
+      name: 'BasicInputComponent',
+      component: BasicInputComponent,
+    },
+    {
+      path: '/text-area-component',
+      name: 'TextAreaComponent',
+      component: BasicTextAreaComponent,
     },
   ],
 });

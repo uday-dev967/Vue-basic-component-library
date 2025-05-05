@@ -6,7 +6,9 @@ const Tasks = [
   { name: 'Containing Dom Height', value: '/containing-dom-height' },
   { name: 'Containing Img Width Height', value: '/image-contain' },
   { name: 'Table Component', value: '/table-component' },
-  { name: 'Test components', value: '/test-components' },
+  { name: 'Basic Input Component', value: '/basic-input-component' },
+  { name: 'Text Area Component', value: '/text-area-component' },
+  // { name: 'Test components', value: '/test-components' },
 ];
 const isOpen = ref(false);
 const searchVal = ref('');
