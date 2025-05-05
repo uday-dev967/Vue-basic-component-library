@@ -3,6 +3,7 @@ import HomeWrapper from '../views/HomeWrapper.vue';
 import LoginWrapper from '../views/LoginWrapper.vue';
 import ContainingDomHeight from '../views/ContainingDomHeight.vue';
 import ImageContain from '../views/ImageContain.vue';
+import TableComponent from "../views/TableComponent.vue"
 import TestComponents from '../views/TestComponents.vue';
 
 const router = createRouter({
@@ -28,6 +29,11 @@ const router = createRouter({
       path: '/image-contain',
       name: 'ImageContain',
       component: ImageContain,
+    },
+    {
+      path: '/table-component',
+      name: 'TableComponent',
+      component: TableComponent,
     },
     {
       path: '/test-components',
