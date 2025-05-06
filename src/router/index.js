@@ -6,6 +6,7 @@ import ImageContain from '../views/ImageContain.vue';
 import TableComponent from '../views/TableComponent.vue';
 import BasicInputComponent from '../views/BasicInputComponent.vue';
 import BasicTextAreaComponent from '../views/BasicTextAreaComponent.vue';
+import FileInputComponent from '../views/FileInputComponent.vue';
 import TestComponents from '../views/TestComponents.vue';
 
 const router = createRouter({
@@ -51,6 +52,11 @@ const router = createRouter({
       path: '/text-area-component',
       name: 'TextAreaComponent',
       component: BasicTextAreaComponent,
+    },
+    {
+      path: '/file-input-component',
+      name: 'FileInputComponent',
+      component: FileInputComponent,
     },
   ],
 });
