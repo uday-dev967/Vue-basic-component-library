@@ -1,6 +1,7 @@
 <script setup>
 import BasicInput from '@/components/sharedComponents/BasicInput.vue';
 import TextArea from '@/components/sharedComponents/TextArea.vue';
+import FileInput from '@/components/sharedComponents/FileInput.vue';
 
 const prependClicked = (e) => {
   console.log('prependClicked');
@@ -52,7 +53,7 @@ const handleAppendClick = (e) => {
       @append:click="handleAppendClick"
     >
     </BasicInput> -->
-    <TextArea
+    <!-- <TextArea
       label="Label"
       placeholder="Placeholder"
       :clearable="false"
@@ -66,7 +67,18 @@ const handleAppendClick = (e) => {
       :counter="true"
       :maxRows="5"
     >
-    </TextArea>
+    </TextArea> -->
+    <FileInput
+      :prepend="true"
+      :prepend-inner="true"
+      :append="true"
+      :append-inner="true"
+      :multiple="true"
+      :max-files="2"
+      :chip="true"
+      :accept="'.png, .jpg, .jpeg'"
+    >
+    </FileInput>
   </div>
 </template>
 

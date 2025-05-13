@@ -40,6 +40,11 @@ const emit = defineEmits([
   'dragover', // Event emitted when dragging over the component
   'dragleave', // Event emitted when dragging leaves the component
   'drop', // Event emitted when an item is dropped
+  'parent:dragenter', // Event emitted when dragging enters the parent component
+  'parent:dragover', // Event emitted when dragging over the parent component
+  'parent:dragleave', // Event emitted when dragging leaves the parent component
+  'parent:drop', // Event emitted when an item is dropped on the parent component
+  'parent:paste', // Event emitted when pasting on the parent component
 ]);
 
 // Define component props
@@ -58,8 +63,8 @@ const props = defineProps({
   placeholder: { type: String, required: false, default: '' }, // Placeholder text for the input
   type: { type: String, default: 'text', required: false }, // Input type (text, email, etc.)
   persistentDetails: { type: Boolean, required: false }, // Keep validation details visible
-  modelValue: { type: [String, Number], required: false }, // v-model binding value
-  value: [String, Number], // Alternative value prop
+  modelValue: { type: [String, Number, Object, Array], required: false }, // v-model binding value
+  value: [String, Number, Object, Array], // Alternative value prop
   rules: { type: Array, default: () => [], required: false }, // Validation rules
   hideSpinButtons: { type: Boolean, required: false },
 });
@@ -81,7 +86,12 @@ const validate = () => {
   errorMessage.value = ''; // Reset error message
 
   // Check if the value is empty and validate required rule
-  if (internalValue.value === '') {
+  if (
+    internalValue.value === '' ||
+    internalValue.value === null ||
+    internalValue.value === undefined ||
+    (Array.isArray(internalValue.value) && internalValue.value.length === 0)
+  ) {
     const requiredRule = props.rules.find((rule) => rule.rule === 'required');
     if (requiredRule && !handleStringRule('required', internalValue.value)) {
       error.value = true; // Set error state
@@ -189,7 +199,26 @@ const getDefaultErrorMessage = (rule, condition) => {
 const handleStringRule = (rule, value, condition) => {
   switch (rule) {
     case 'required':
-      return value && value.trim().length > 0; // Check if value is not empty
+      if (value === null || value === undefined || value === '') {
+        return false;
+      }
+
+      switch (typeof value) {
+        case 'string':
+          return value.trim().length > 0;
+        case 'object':
+          if (Array.isArray(value)) {
+            return value.length > 0;
+          }
+          // For File objects, check if the file exists and has a size
+          if (value instanceof File) {
+            return value.size > 0;
+          }
+          // For other objects, check if they have any properties
+          return Object.keys(value).length > 0;
+        default:
+          return true;
+      }
 
     case 'minLength':
       return value.length >= condition; // Check minimum length
@@ -253,6 +282,10 @@ const changeInternalType = (type) => {
   internalType.value = type;
 };
 
+const setInternalValue = (value) => {
+  internalValue.value = value;
+};
+
 // Function to trigger events and handle input changes
 const triggerEvent = (eventName, payload) => {
   switch (eventName) {
@@ -280,6 +313,11 @@ const triggerEvent = (eventName, payload) => {
 
   emit(eventName, payload); // Emit the event
 };
+
+defineExpose({
+  validate,
+  setInternalValue,
+});
 </script>
 
 <template>
@@ -304,7 +342,14 @@ const triggerEvent = (eventName, payload) => {
         </svg>
       </slot>
     </div>
-    <div class="input-wrapper">
+    <div
+      class="input-wrapper"
+      @dragenter.prevent="triggerEvent('parent:dragenter', $event)"
+      @dragover.prevent="triggerEvent('parent:dragover', $event)"
+      @dragleave.prevent="triggerEvent('parent:dragleave', $event)"
+      @drop.prevent="triggerEvent('parent:drop', $event)"
+      @paste.prevent="triggerEvent('parent:paste', $event)"
+    >
       <div v-if="prependInner" class="prepend-inner-wrapper">
         <slot name="prepend-inner" :props="{ click: handlePrependInnerClick }">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" @click="handlePrependInnerClick">
