@@ -8,6 +8,7 @@ import BasicInputComponent from '../views/BasicInputComponent.vue';
 import BasicTextAreaComponent from '../views/BasicTextAreaComponent.vue';
 import FileInputComponent from '../views/FileInputComponent.vue';
 import TestComponents from '../views/TestComponents.vue';
+import BasicRadioComponent from '../views/BasicRadioComponent.vue';
 
 const router = createRouter({
   // history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,6 +58,11 @@ const router = createRouter({
       path: '/file-input-component',
       name: 'FileInputComponent',
       component: FileInputComponent,
+    },
+    {
+      path: '/basic-radio-component',
+      name: 'BasicRadioComponent',
+      component: BasicRadioComponent,
     },
   ],
 });

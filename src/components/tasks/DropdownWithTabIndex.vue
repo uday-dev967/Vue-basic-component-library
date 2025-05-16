@@ -10,6 +10,7 @@ const Tasks = [
   { name: 'Text Area Component', value: '/text-area-component' },
   { name: 'File Input Component', value: '/file-input-component' },
   { name: 'Test components', value: '/test-components' },
+  { name: 'Basic Radio Component', value: '/basic-radio-component' },
 ];
 const isOpen = ref(false);
 const searchVal = ref('');
