@@ -9,6 +9,7 @@ import BasicTextAreaComponent from '../views/BasicTextAreaComponent.vue';
 import FileInputComponent from '../views/FileInputComponent.vue';
 import TestComponents from '../views/TestComponents.vue';
 import BasicRadioComponent from '../views/BasicRadioComponent.vue';
+import BasicCheckboxComponent from '../views/BasicCheckboxComponent.vue';
 
 const router = createRouter({
   // history: createWebHistory(import.meta.env.BASE_URL),
@@ -63,6 +64,11 @@ const router = createRouter({
       path: '/basic-radio-component',
       name: 'BasicRadioComponent',
       component: BasicRadioComponent,
+    },
+    {
+      path: '/basic-checkbox-component',
+      name: 'BasicCheckboxComponent',
+      component: BasicCheckboxComponent,
     },
   ],
 });

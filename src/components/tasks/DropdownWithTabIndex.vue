@@ -11,6 +11,7 @@ const Tasks = [
   { name: 'File Input Component', value: '/file-input-component' },
   { name: 'Test components', value: '/test-components' },
   { name: 'Basic Radio Component', value: '/basic-radio-component' },
+  { name: 'Basic Checkbox Component', value: '/basic-checkbox-component' },
 ];
 const isOpen = ref(false);
 const searchVal = ref('');
@@ -50,7 +51,7 @@ function checkDropdownOutsideClick({ relatedTarget }) {
   console.log('contain', tasksDropdown.value?.contains(relatedTarget));
   console.log('target', relatedTarget);
 
-  if (tasksDropdown.value?.contains(relatedTarget) || tasksDropdown.value.isEqualNode(relatedTarget)) {
+  if (tasksDropdown.value?.contains(relatedTarget) || tasksDropdown.value?.isEqualNode(relatedTarget)) {
     return;
   }
   isOpen.value = false;
