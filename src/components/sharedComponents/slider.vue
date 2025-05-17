@@ -250,7 +250,6 @@ onBeforeUnmount(() => stopDrag());
 
     .thumb-label {
       position: absolute;
-      top: -2.25rem;
       transform: translateX(-50%);
       background: #333;
       color: white;
@@ -258,6 +257,8 @@ onBeforeUnmount(() => stopDrag());
       padding: 0.25rem 0.5rem;
       border-radius: 0.25rem;
       white-space: nowrap;
+      bottom: 0;
+      margin-bottom: 1rem;
 
       &::before {
         content: '';
