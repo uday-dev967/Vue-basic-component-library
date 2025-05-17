@@ -1,6 +1,6 @@
 <script setup>
 import { toRefs } from "vue";
-import ScrollObserver from "./scrollObserver.vue";
+import ScrollObserver from "./ScrollObserver.vue";
 const emits=defineEmits(['cellClicked','scrolledToEndInTable'])
 const props = defineProps({
   headers: {
