@@ -10,6 +10,7 @@ import FileInputComponent from '../views/FileInputComponent.vue';
 import TestComponents from '../views/TestComponents.vue';
 import BasicRadioComponent from '../views/BasicRadioComponent.vue';
 import BasicCheckboxComponent from '../views/BasicCheckboxComponent.vue';
+import BasicSliderComponent from '../views/BasicSliderComponent.vue';
 
 const router = createRouter({
   // history: createWebHistory(import.meta.env.BASE_URL),
@@ -69,6 +70,11 @@ const router = createRouter({
       path: '/basic-checkbox-component',
       name: 'BasicCheckboxComponent',
       component: BasicCheckboxComponent,
+    },
+    {
+      path: '/basic-slider-component',
+      name: 'BasicSliderComponent',
+      component: BasicSliderComponent,
     },
   ],
 });
