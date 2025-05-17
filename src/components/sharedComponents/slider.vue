@@ -50,14 +50,23 @@ const props = defineProps({
   },
   thumbLabel: {
     type: [String, Boolean],
-    default: false,
+    default: true,
     validator: (value) => ['always', true, false].includes(value),
+  },
+  thumbLabelClasses: {
+    type: Array,
+    default: () => [],
+  },
+  labelClasses: {
+    type: Array,
+    default: () => [],
   },
 });
 
 const track = ref(null);
 const currentValue = ref(props.modelValue ?? props.value);
-
+const isDragging = ref(false);
+const isFocused = ref(false);
 watch([() => props.modelValue, () => props.value], ([modelVal, val]) => {
   currentValue.value = modelVal ?? val;
 });
@@ -80,6 +89,12 @@ const displayValue = computed(() => {
   return currentValue.value.toFixed(decimalPlaces);
 });
 
+const showThumbLabel = computed(() => {
+  if (props.thumbLabel === 'always') return true;
+  if (props.thumbLabel === true) return isDragging.value || isFocused.value;
+  return false;
+});
+
 const updateValueFromPosition = (clientX) => {
   if (!track.value) return;
   const rect = track.value.getBoundingClientRect();
@@ -97,6 +112,7 @@ const handleMouseMove = (e) => updateValueFromPosition(e.clientX);
 const handleTouchMove = (e) => updateValueFromPosition(e.touches[0].clientX);
 
 const stopDrag = () => {
+  isDragging.value = false;
   window.removeEventListener('mousemove', handleMouseMove);
   window.removeEventListener('touchmove', handleTouchMove);
   window.removeEventListener('mouseup', stopDrag);
@@ -105,6 +121,7 @@ const stopDrag = () => {
 
 const startDrag = (e) => {
   if (props.disabled || props.readonly) return;
+  isDragging.value = true;
 
   if (e.type === 'mousedown') {
     updateValueFromPosition(e.clientX);
@@ -145,7 +162,7 @@ onBeforeUnmount(() => stopDrag());
 <template>
   <div class="basic-slider-input-wrapper">
     <slot name="label">
-      <label v-if="label" class="slider-label">{{ label }}</label>
+      <label v-if="label" :class="labelClasses" class="slider-label">{{ label }}</label>
     </slot>
     <div
       class="slider-track"
@@ -162,6 +179,8 @@ onBeforeUnmount(() => stopDrag());
       :aria-valuenow="currentValue"
       :aria-disabled="disabled"
       :aria-readonly="readonly"
+      @focus="isFocused = true"
+      @blur="isFocused = false"
     >
       <div class="slider-filled" :style="{ width: fillPercent + '%', backgroundColor: color }" />
       <div
@@ -170,12 +189,8 @@ onBeforeUnmount(() => stopDrag());
         @mousedown.stop.prevent="startDrag"
         @touchstart.stop.prevent="startDrag"
       />
-      <div
-        v-if="thumbLabel === 'always' || thumbLabel === true"
-        class="thumb-label"
-        :style="{ left: fillPercent + '%' }"
-      >
-        {{ displayValue }}
+      <div v-show="showThumbLabel" class="thumb-label" :style="{ left: fillPercent + '%' }">
+        {{ currentValue === 0 || currentValue === 100 ? currentValue : displayValue }}
       </div>
     </div>
   </div>
@@ -235,7 +250,7 @@ onBeforeUnmount(() => stopDrag());
 
     .thumb-label {
       position: absolute;
-      top: -1.5rem;
+      top: -2.25rem;
       transform: translateX(-50%);
       background: #333;
       color: white;
@@ -243,6 +258,17 @@ onBeforeUnmount(() => stopDrag());
       padding: 0.25rem 0.5rem;
       border-radius: 0.25rem;
       white-space: nowrap;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: calc(50% - 0.25rem);
+        top: 100%;
+        width: 0.5rem;
+        height: 0.5rem;
+        background: #333;
+        transform: rotate(45deg) translate(-50%, -50%);
+      }
     }
   }
 }
