@@ -50,7 +50,7 @@ const props = defineProps({
   },
   thumbLabel: {
     type: [String, Boolean],
-    default: true,
+    default: false,
     validator: (value) => ['always', true, false].includes(value),
   },
   thumbLabelClasses: {
