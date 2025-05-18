@@ -13,6 +13,7 @@ const Tasks = [
   { name: 'Basic Radio Component', value: '/basic-radio-component' },
   { name: 'Basic Checkbox Component', value: '/basic-checkbox-component' },
   { name: 'Basic Slider Component', value: '/basic-slider-component' },
+  { name: 'Range Component', value: '/range-component' },
 ];
 const isOpen = ref(false);
 const searchVal = ref('');

@@ -11,6 +11,7 @@ import TestComponents from '../views/TestComponents.vue';
 import BasicRadioComponent from '../views/BasicRadioComponent.vue';
 import BasicCheckboxComponent from '../views/BasicCheckboxComponent.vue';
 import BasicSliderComponent from '../views/BasicSliderComponent.vue';
+import RangeComponent from '../views/RangeComponent.vue';
 
 const router = createRouter({
   // history: createWebHistory(import.meta.env.BASE_URL),
@@ -75,6 +76,11 @@ const router = createRouter({
       path: '/basic-slider-component',
       name: 'BasicSliderComponent',
       component: BasicSliderComponent,
+    },
+    {
+      path: '/range-component',
+      name: 'RangeComponent',
+      component: RangeComponent,
     },
   ],
 });
