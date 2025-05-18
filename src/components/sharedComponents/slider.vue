@@ -38,7 +38,7 @@ const props = defineProps({
   },
   label: {
     type: String,
-    default: 'asdf',
+    default: '',
   },
   min: {
     type: Number,
@@ -160,9 +160,9 @@ onBeforeUnmount(() => stopDrag());
 </script>
 
 <template>
-  <div class="basic-slider-input-wrapper">
+  <div class="basic-slider-input-wrapper" :class="{ 'has-label': label }">
     <slot name="label">
-      <label v-if="label" :class="labelClasses" class="slider-label">{{ label }}</label>
+      <label :class="labelClasses" class="slider-label">{{ label }}</label>
     </slot>
     <div
       class="slider-track"
@@ -198,15 +198,17 @@ onBeforeUnmount(() => stopDrag());
 
 <style scoped lang="scss">
 .basic-slider-input-wrapper {
-  gap: 0.5rem;
   width: 100%;
   display: grid;
   grid-template-columns: max-content 1fr;
   align-items: center;
 
+  &.has-label {
+    gap: 1rem;
+  }
+
   .slider-label {
     font-size: 1rem;
-    margin-right: 0.5rem;
   }
 
   .slider-track {
