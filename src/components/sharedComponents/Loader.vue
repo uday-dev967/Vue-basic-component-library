@@ -1,11 +1,5 @@
 <script setup>
-import { computed } from 'vue';
-
 const props = defineProps({
-  modelValue: {
-    type: Number,
-    default: 0,
-  },
   size: {
     type: Number,
     default: 40,
@@ -14,106 +8,102 @@ const props = defineProps({
     type: Number,
     default: 4,
   },
-  color: {
+  bgColor: {
+    type: String,
+    default: 'rgba(255, 255, 255, 0.75)',
+  },
+  fillColor: {
     type: String,
     default: '#000',
   },
-  bgColor: {
+  emptyColor: {
     type: String,
-    default: 'grey',
+    default: '#e0e0e0',
   },
-  indeterminate: {
+  isLocalLoader: {
     type: Boolean,
-    default: false,
+    default: true,
   },
-  rotate: {
-    type: Number,
-    default: 0,
+  src: {
+    type: String,
+    default: '',
   },
-});
-
-const circumference = computed(() => {
-  const radius = (props.size - props.width) / 2;
-  return 2 * Math.PI * radius;
-});
-
-const strokeDashoffset = computed(() => {
-  if (props.indeterminate) return 0;
-  const progress = props.modelValue / 100;
-  return circumference.value * (1 - progress);
 });
 </script>
 
 <template>
   <div
     class="loader-wrapper"
+    :class="{ 'local-loader': isLocalLoader }"
     :style="{
-      width: `${size}px`,
-      height: `${size}px`,
+      backgroundColor: bgColor,
+      '--loader-fill-color': fillColor,
+      '--loader-empty-color': emptyColor,
     }"
   >
-    <svg
-      class="loader"
-      :class="{ indeterminate: indeterminate }"
-      :style="{
-        transform: `rotate(${rotate}deg)`,
-      }"
-      viewBox="0 0 100 100"
-    >
-      <circle
-        class="loader-background"
-        cx="50"
-        cy="50"
-        :r="(size - width) / 2"
-        :stroke-width="width"
+    <slot>
+      <img
+        v-if="src"
+        :src="src"
+        alt="loader"
+        class="custom-loader-img"
         :style="{
-          stroke: bgColor,
+          width: size + 'px',
+          height: size + 'px',
         }"
       />
-      <circle
-        class="loader-progress"
-        cx="50"
-        cy="50"
-        :r="(size - width) / 2"
-        :stroke-width="width"
-        :style="{
-          stroke: color,
-          strokeDasharray: circumference,
-          strokeDashoffset: strokeDashoffset,
-        }"
-      />
-    </svg>
+      <svg v-else class="indeterminate-loader" :width="size" :height="size" viewBox="25 25 50 50">
+        <circle class="track" cx="50" cy="50" r="20" fill="none" :stroke-width="width" />
+        <circle class="arc" cx="50" cy="50" r="20" fill="none" :stroke-width="width" stroke-linecap="round" />
+      </svg>
+    </slot>
   </div>
 </template>
 
-<style lang="scss" scoped>
-.loader-wrapper {
-  position: relative;
-  display: inline-block;
+<style scoped lang="scss">
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
 }
 
-.loader {
-  width: 100%;
-  height: 100%;
-  transform-origin: center;
-  animation: rotate 2s linear infinite;
+.loader-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: all;
+  user-select: none;
+  cursor: default;
+  --loader-fill-color: #000;
+  --loader-empty-color: #e0e0e0;
 
-  &.indeterminate {
-    .loader-progress {
+  &.local-loader {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .indeterminate-loader {
+    animation: rotate 2s linear infinite;
+
+    .track {
+      stroke: var(--loader-empty-color);
+    }
+
+    .arc {
+      stroke: var(--loader-fill-color);
+      stroke-dasharray: 1, 200;
+      stroke-dashoffset: 0;
       animation: dash 1.5s ease-in-out infinite;
     }
   }
-}
 
-.loader-background {
-  fill: none;
-  opacity: 0.2;
-}
-
-.loader-progress {
-  fill: none;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 0.3s ease;
+  .custom-loader-img {
+    display: block;
+  }
 }
 
 @keyframes rotate {
@@ -124,16 +114,16 @@ const strokeDashoffset = computed(() => {
 
 @keyframes dash {
   0% {
-    stroke-dasharray: 1, 150;
+    stroke-dasharray: 1, 200;
     stroke-dashoffset: 0;
   }
   50% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -35;
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
   }
   100% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -124;
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
   }
 }
 </style>
