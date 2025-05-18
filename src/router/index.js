@@ -12,6 +12,7 @@ import BasicRadioComponent from '../views/BasicRadioComponent.vue';
 import BasicCheckboxComponent from '../views/BasicCheckboxComponent.vue';
 import BasicSliderComponent from '../views/BasicSliderComponent.vue';
 import RangeComponent from '../views/RangeComponent.vue';
+import LoaderComponent from '../views/LoaderComponent.vue';
 
 const router = createRouter({
   // history: createWebHistory(import.meta.env.BASE_URL),
@@ -81,6 +82,11 @@ const router = createRouter({
       path: '/range-component',
       name: 'RangeComponent',
       component: RangeComponent,
+    },
+    {
+      path: '/loader-component',
+      name: 'LoaderComponent',
+      component: LoaderComponent,
     },
   ],
 });
