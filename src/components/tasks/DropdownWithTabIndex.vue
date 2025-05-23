@@ -15,6 +15,7 @@ const Tasks = [
   { name: 'Basic Slider Component', value: '/basic-slider-component' },
   { name: 'Range Component', value: '/range-component' },
   { name: 'Loader Component', value: '/loader-component' },
+  { name: 'Switch Component', value: '/switch-component' },
 ];
 const isOpen = ref(false);
 const searchVal = ref('');

@@ -13,6 +13,7 @@ import BasicCheckboxComponent from '../views/BasicCheckboxComponent.vue';
 import BasicSliderComponent from '../views/BasicSliderComponent.vue';
 import RangeComponent from '../views/RangeComponent.vue';
 import LoaderComponent from '../views/LoaderComponent.vue';
+import SwitchComponent from '../views/SwitchComponent.vue';
 
 const router = createRouter({
   // history: createWebHistory(import.meta.env.BASE_URL),
@@ -87,6 +88,11 @@ const router = createRouter({
       path: '/loader-component',
       name: 'LoaderComponent',
       component: LoaderComponent,
+    },
+    {
+      path: '/switch-component',
+      name: 'SwitchComponent',
+      component: SwitchComponent,
     },
   ],
 });
