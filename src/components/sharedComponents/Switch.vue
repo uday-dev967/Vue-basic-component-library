@@ -53,7 +53,7 @@ const handleSwitchChange = () => {
   const newValue = !internalValue.value;
 
   internalValue.value = newValue;
-  if (props.modelValue) {
+  if (props.modelValue === undefined) {
     emit('update:modelValue', newValue);
   }
   emit('change', newValue);
