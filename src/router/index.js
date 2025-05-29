@@ -14,6 +14,7 @@ import BasicSliderComponent from '../views/BasicSliderComponent.vue';
 import RangeComponent from '../views/RangeComponent.vue';
 import LoaderComponent from '../views/LoaderComponent.vue';
 import SwitchComponent from '../views/SwitchComponent.vue';
+import SliderGroupComponent from '../views/SliderGroupComponent.vue';
 
 const router = createRouter({
   // history: createWebHistory(import.meta.env.BASE_URL),
@@ -93,6 +94,11 @@ const router = createRouter({
       path: '/switch-component',
       name: 'SwitchComponent',
       component: SwitchComponent,
+    },
+    {
+      path: '/slider-group',
+      name: 'SliderGroup',
+      component: SliderGroupComponent,
     },
   ],
 });

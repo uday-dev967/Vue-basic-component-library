@@ -16,6 +16,7 @@ const Tasks = [
   { name: 'Range Component', value: '/range-component' },
   { name: 'Loader Component', value: '/loader-component' },
   { name: 'Switch Component', value: '/switch-component' },
+  { name: 'Slider Group', value: '/slider-group' },
 ];
 const isOpen = ref(false);
 const searchVal = ref('');
