@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 
 const emit = defineEmits(['cardClick']);
 
@@ -37,39 +37,48 @@ const props = defineProps({
 const currentDot = ref(1);
 const sliderContainer = ref(null);
 const selectedCard = ref(props.selectedCard);
+const disableNextBtn = ref(false);
+const disablePrevBtn = ref(false);
+const totalDots = ref(0);
 
-const disablePrevBtn = computed(() => {
-  return currentDot.value === 1;
-});
+const setDisablePrevBtn = () => {
+  disablePrevBtn.value = currentDot.value === 1;
+};
 
-const disableNextBtn = computed(() => {
-  return currentDot.value === totalDots.value;
-});
+const setDisableNextBtn = () => {
+  disableNextBtn.value = currentDot.value === totalDots.value;
+};
 
-const totalDots = computed(() => {
+const setTotalDots = () => {
   if (!sliderContainer.value) return 0;
 
   const containerWidth = sliderContainer.value.clientWidth;
   const totalWidth = sliderContainer.value.scrollWidth;
 
   // Calculate how many full container widths we can fit
-  return Math.ceil(totalWidth / containerWidth);
-});
+  totalDots.value = Math.ceil(totalWidth / containerWidth);
+};
 
 // ..........................
 const handleDotClick = (dot) => {
   currentDot.value = dot;
   sliderContainer.value.scrollLeft = (dot - 1) * sliderContainer.value.clientWidth;
+  setDisablePrevBtn();
+  setDisableNextBtn();
 };
 
 const handlePrevBtnClick = () => {
   if (disablePrevBtn.value) return;
   handleDotClick(currentDot.value - 1);
+  setDisablePrevBtn();
+  setDisableNextBtn();
 };
 
 const handleNextBtnClick = () => {
   if (disableNextBtn.value) return;
   handleDotClick(currentDot.value + 1);
+  setDisablePrevBtn();
+  setDisableNextBtn();
 };
 
 const handleCardClick = (i) => {
@@ -84,26 +93,42 @@ const handleCardClick = (i) => {
   if (i === 1) {
     currentDot.value = 1;
     sliderContainer.value.scrollLeft = 0;
-    return;
-  }
-
-  if (i === totalCards) {
+  } else if (i === totalCards) {
     currentDot.value = totalDots.value;
     const cardWidth = sliderContainer.value.scrollWidth / totalCards;
     const targetScroll = (totalCards - 1) * cardWidth - sliderContainer.value.clientWidth / 2 + cardWidth / 2;
     sliderContainer.value.scrollLeft = Math.max(0, targetScroll);
-    return;
+  } else {
+    // Handle middle cases
+    const cardsPerDot = Math.ceil(totalCards / totalDots.value);
+    const targetDot = Math.ceil(i / cardsPerDot);
+    currentDot.value = targetDot;
+    const cardWidth = sliderContainer.value.scrollWidth / totalCards;
+    const targetScroll = (i - 1) * cardWidth - sliderContainer.value.clientWidth / 2 + cardWidth / 2;
+
+    sliderContainer.value.scrollLeft = Math.max(0, targetScroll);
   }
 
-  // Handle middle cases
-  const cardsPerDot = Math.ceil(totalCards / totalDots.value);
-  const targetDot = Math.ceil(i / cardsPerDot);
-  currentDot.value = targetDot;
-  const cardWidth = sliderContainer.value.scrollWidth / totalCards;
-  const targetScroll = (i - 1) * cardWidth - sliderContainer.value.clientWidth / 2 + cardWidth / 2;
-
-  sliderContainer.value.scrollLeft = Math.max(0, targetScroll);
+  setDisablePrevBtn();
+  setDisableNextBtn();
 };
+const handleResize = () => {
+  sliderContainer.value.scrollLeft = 0;
+  currentDot.value = 1;
+  setTotalDots();
+  setDisablePrevBtn();
+  setDisableNextBtn();
+};
+
+onMounted(() => {
+  handleResize();
+
+  window.addEventListener('resize', handleResize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize);
+});
 </script>
 
 <template>
