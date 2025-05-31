@@ -229,8 +229,8 @@ const tableCellClicked=(data,cell)=>{
   emits('cellClicked',data,cell)
 }
 
-function handelLoadMoreData(emit){
-  emit("scrolledToEndInTable");
+function handelLoadMoreData(){
+  emits("scrolledToEndInTable");
 }
 function onTableCellKeyDown(event,rowData,cell){
   console.log(event.key)
@@ -281,7 +281,7 @@ function onTableCellBlur(event,rowData,cell){
         </tr>
       </thead>
     </table>
-    <ScrollObserver @scrolledToEnd="(...args) => handelLoadMoreData(emits)"/>
+    <ScrollObserver @scrolledToEnd="(...args) => handelLoadMoreData()"/>
   </div>
 </template>
 
