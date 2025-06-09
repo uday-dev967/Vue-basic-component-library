@@ -1,6 +1,7 @@
 <script setup>
 import DropdownWithTabIndex from '@/components/tasks/DropdownWithTabIndex.vue';
 import VerticleAppBar from '@/components/sharedComponents/VerticleAppBar.vue';
+import Breadcrumb from '@/components/sharedComponents/Breadcrumb.vue';
 import { ref } from 'vue';
 
 const showAppBar = ref(true);
@@ -9,10 +10,12 @@ const activeItem = ref('settings');
 
 <template>
   <div class="home-page-wrapper">
-    <VerticleAppBar v-model="showAppBar" :active-item="activeItem" @update:active-item="activeItem = $event" />
+    <!-- <VerticleAppBar v-model="showAppBar" :active-item="activeItem" @update:active-item="activeItem = $event" />
     <button @click="showAppBar = !showAppBar" class="toggle-btn">{{ showAppBar ? 'Hide' : 'Show' }} App Bar</button>
 
-    <DropdownWithTabIndex />
+    <DropdownWithTabIndex /> -->
+
+    <Breadcrumb />
   </div>
 </template>
 
