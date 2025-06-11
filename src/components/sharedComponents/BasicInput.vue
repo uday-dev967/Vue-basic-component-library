@@ -637,12 +637,20 @@ defineExpose({
 
     .prepend-wrapper,
     .prepend-inner-wrapper,
-    .input-field-wrapper,
+    .input-field,
     .append-wrapper,
     .append-inner-wrapper,
     .details-wrapper {
       opacity: 0.5; /* Dim child elements */
       pointer-events: none; /* Disable pointer events for child elements */
+    }
+
+    .input-wrapper {
+      .input-field-wrapper {
+        .label.floating {
+          color: rgba(#333, 0.5);
+        }
+      }
     }
   }
 
