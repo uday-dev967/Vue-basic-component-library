@@ -27,11 +27,11 @@ const props = defineProps({
   },
   sliderColor: {
     type: String,
-    default: (props) => props.inset ? 'grey' : 'white',
+    default: (props) => (props.inset ? 'grey' : 'white'),
   },
   activeSliderColor: {
     type: String,
-    default: (props) => props.inset ? 'grey' : 'white',
+    default: (props) => (props.inset ? 'grey' : 'white'),
   },
   size: {
     type: String,
@@ -48,6 +48,20 @@ const props = defineProps({
   inset: {
     type: Boolean,
     default: false,
+  },
+  dotLabels: {
+    type: Object,
+    default: () => ({
+      true: 'On',
+      false: 'Off',
+    }),
+  },
+  dotLabelColors: {
+    type: Object,
+    default: () => ({
+      true: '#000',
+      false: '#000',
+    }),
   },
 });
 
@@ -77,8 +91,14 @@ const handleSwitchChange = () => {
     <span class="switch-slider" :style="{ '--bg-color': bgColor, '--active-bg-color': activeBgColor }">
       <span
         class="switch-slider-dot"
-        :style="{ '--slider-color': sliderColor, '--active-slider-color': activeSliderColor }"
-      ></span>
+        :style="{
+          '--slider-color': sliderColor,
+          '--active-slider-color': activeSliderColor,
+          color: dotLabelColors?.[internalValue] || '#000',
+        }"
+      >
+        {{ dotLabels?.[internalValue] }}
+      </span>
     </span>
     <slot name="right-label" v-if="label && labelPosition === 'right'">
       {{ label }}
@@ -132,6 +152,11 @@ const handleSwitchChange = () => {
       transition: all 0.3s ease;
       background-color: var(--slider-color);
       transform: translateX(0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.5rem;
+      overflow: hidden;
     }
   }
 
@@ -176,6 +201,7 @@ const handleSwitchChange = () => {
           width: 1rem;
           height: 1rem;
           margin: 0 0.1875rem;
+          font-size: 0.375rem;
           box-shadow:
             0px 2px 1px -1px rgba(0, 0, 0, 0.2),
             0px 1px 1px 0px rgba(0, 0, 0, 0.14),
@@ -212,6 +238,7 @@ const handleSwitchChange = () => {
           width: 1.125rem;
           height: 1.125rem;
           margin: 0 0.1875rem;
+          font-size: 0.4375rem;
           box-shadow:
             0px 2px 1px -1px rgba(0, 0, 0, 0.2),
             0px 1px 1px 0px rgba(0, 0, 0, 0.14),
@@ -231,6 +258,7 @@ const handleSwitchChange = () => {
         width: 1.5rem;
         height: 1.5rem;
         margin: 0 0.25rem;
+        font-size: 0.5rem;
       }
     }
 
@@ -248,6 +276,7 @@ const handleSwitchChange = () => {
           width: 1.25rem;
           height: 1.25rem;
           margin: 0 0.25rem;
+          font-size: 0.5625rem;
           box-shadow:
             0px 2px 1px -1px rgba(0, 0, 0, 0.2),
             0px 1px 1px 0px rgba(0, 0, 0, 0.14),
@@ -285,6 +314,8 @@ const handleSwitchChange = () => {
           width: 1.5rem;
           height: 1.5rem;
           margin: 0 0.375rem;
+          font-size: 0.625rem;
+
           box-shadow:
             0px 2px 1px -1px rgba(0, 0, 0, 0.2),
             0px 1px 1px 0px rgba(0, 0, 0, 0.14),
@@ -322,6 +353,8 @@ const handleSwitchChange = () => {
           width: 1.75rem;
           height: 1.75rem;
           margin: 0 0.375rem;
+          font-size: 0.75rem;
+
           box-shadow:
             0px 2px 1px -1px rgba(0, 0, 0, 0.2),
             0px 1px 1px 0px rgba(0, 0, 0, 0.14),
