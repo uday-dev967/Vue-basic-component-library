@@ -184,6 +184,7 @@ const handleSwitchChange = () => {
         width: 1rem;
         height: 1rem;
         margin: 0 0.1875rem;
+        font-size: 0.375rem;
       }
     }
 
@@ -221,6 +222,7 @@ const handleSwitchChange = () => {
         width: 1.25rem;
         height: 1.25rem;
         margin: 0 0.1875rem;
+        font-size: 0.4375rem;
       }
     }
 
@@ -259,6 +261,7 @@ const handleSwitchChange = () => {
         height: 1.5rem;
         margin: 0 0.25rem;
         font-size: 0.5rem;
+        font-size: 0.5625rem;
       }
     }
 
@@ -297,6 +300,7 @@ const handleSwitchChange = () => {
         width: 2rem;
         height: 2rem;
         margin: 0 0.375rem;
+        font-size: 0.625rem;
       }
     }
 
@@ -336,6 +340,7 @@ const handleSwitchChange = () => {
         width: 2.5rem;
         height: 2.5rem;
         margin: 0 0.375rem;
+        font-size: 0.75rem;
       }
     }
 
