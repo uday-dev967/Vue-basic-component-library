@@ -17,24 +17,28 @@ const handleSwitchChange = (newValue) => {
             @change="handleSwitchChange"
             label="Toggle Switch"
             size="xs"
+            inset
         />
         <Switch 
             v-model="switchValue"
             @change="handleSwitchChange"
             label="Toggle Switch"
             size="sm"
+            inset
         />
         <Switch 
             v-model="switchValue"
             @change="handleSwitchChange"
             label="Toggle Switch"
             size="md"
+            inset
         />
         <Switch 
             v-model="switchValue"
             @change="handleSwitchChange"
             label="Toggle Switch"
             size="lg"
+            inset
         />
         <Switch 
             v-model="switchValue"
