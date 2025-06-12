@@ -27,11 +27,11 @@ const props = defineProps({
   },
   sliderColor: {
     type: String,
-    default: 'white',
+    default: (props) => props.inset ? 'grey' : 'white',
   },
   activeSliderColor: {
     type: String,
-    default: 'white',
+    default: (props) => props.inset ? 'grey' : 'white',
   },
   size: {
     type: String,
@@ -44,6 +44,10 @@ const props = defineProps({
   labelPosition: {
     type: String,
     default: 'right', //left, right
+  },
+  inset: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -63,7 +67,7 @@ const handleSwitchChange = () => {
 <template>
   <label
     class="switch-container"
-    :class="{ disabled: disabled, readonly: readonly, checked: internalValue, [size]: true }"
+    :class="{ disabled: disabled, readonly: readonly, checked: internalValue, [size]: true, inset: inset }"
     @click.prevent="handleSwitchChange"
   >
     <slot name="left-label" v-if="label && labelPosition === 'left'">
@@ -131,6 +135,19 @@ const handleSwitchChange = () => {
     }
   }
 
+  &.inset {
+    input + .switch-slider .switch-slider-dot {
+      transform: translateX(-50%);
+      left: 0;
+      margin: 0;
+    }
+
+    input:checked + .switch-slider .switch-slider-dot {
+      left: calc(100%);
+      margin: 0;
+    }
+  }
+
   // Size variations
   &.xs {
     font-size: 0.75rem;
@@ -147,6 +164,24 @@ const handleSwitchChange = () => {
 
     input:checked + .switch-slider .switch-slider-dot {
       left: calc(100% - 0.1875rem);
+    }
+
+    &.inset {
+      .switch-slider {
+        width: 1.75rem;
+        height: 0.75rem;
+        margin-right: 0.5rem;
+
+        .switch-slider-dot {
+          width: 1rem;
+          height: 1rem;
+          margin: 0 0.1875rem;
+          box-shadow:
+            0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+            0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+            0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+        }
+      }
     }
   }
 
@@ -166,6 +201,24 @@ const handleSwitchChange = () => {
     input:checked + .switch-slider .switch-slider-dot {
       left: calc(100% - 0.1875rem);
     }
+
+    &.inset {
+      .switch-slider {
+        width: 1.875rem;
+        height: 0.875rem;
+        margin-right: 0.5rem;
+
+        .switch-slider-dot {
+          width: 1.125rem;
+          height: 1.125rem;
+          margin: 0 0.1875rem;
+          box-shadow:
+            0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+            0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+            0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+        }
+      }
+    }
   }
 
   &.md {
@@ -183,6 +236,24 @@ const handleSwitchChange = () => {
 
     input:checked + .switch-slider .switch-slider-dot {
       left: calc(100% - 0.25rem);
+    }
+
+    &.inset {
+      .switch-slider {
+        width: 2.25rem;
+        height: 1rem;
+        margin-right: 0.625rem;
+
+        .switch-slider-dot {
+          width: 1.25rem;
+          height: 1.25rem;
+          margin: 0 0.25rem;
+          box-shadow:
+            0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+            0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+            0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+        }
+      }
     }
   }
 
@@ -203,6 +274,24 @@ const handleSwitchChange = () => {
     input:checked + .switch-slider .switch-slider-dot {
       left: calc(100% - 0.375rem);
     }
+
+    &.inset {
+      .switch-slider {
+        width: 2.5rem;
+        height: 1rem;
+        margin-right: 0.625rem;
+
+        .switch-slider-dot {
+          width: 1.5rem;
+          height: 1.5rem;
+          margin: 0 0.375rem;
+          box-shadow:
+            0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+            0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+            0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+        }
+      }
+    }
   }
 
   &.xl {
@@ -221,6 +310,24 @@ const handleSwitchChange = () => {
 
     input:checked + .switch-slider .switch-slider-dot {
       left: calc(100% - 0.375rem);
+    }
+
+    &.inset {
+      .switch-slider {
+        width: 3rem;
+        height: 1.25rem;
+        margin-right: 0.625rem;
+
+        .switch-slider-dot {
+          width: 1.75rem;
+          height: 1.75rem;
+          margin: 0 0.375rem;
+          box-shadow:
+            0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+            0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+            0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+        }
+      }
     }
   }
 

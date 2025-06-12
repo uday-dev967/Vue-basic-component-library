@@ -16,8 +16,34 @@ const handleSwitchChange = (newValue) => {
             v-model="switchValue"
             @change="handleSwitchChange"
             label="Toggle Switch"
+            size="xs"
+        />
+        <Switch 
+            v-model="switchValue"
+            @change="handleSwitchChange"
+            label="Toggle Switch"
+            size="sm"
+        />
+        <Switch 
+            v-model="switchValue"
+            @change="handleSwitchChange"
+            label="Toggle Switch"
             size="md"
         />
+        <Switch 
+            v-model="switchValue"
+            @change="handleSwitchChange"
+            label="Toggle Switch"
+            size="lg"
+        />
+        <Switch 
+            v-model="switchValue"
+            @change="handleSwitchChange"
+            label="Toggle Switch"
+            size="xl"
+            inset
+        />
+  
     </div>
 </template>
 
@@ -27,5 +53,6 @@ const handleSwitchChange = (newValue) => {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    gap: 1rem;
 }
 </style>
